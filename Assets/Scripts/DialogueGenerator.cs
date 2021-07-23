@@ -33,7 +33,7 @@ public class DialogueGenerator : MonoBehaviour
             }
         }
 
-        GameObject text = GenerateText("Co to za przystojniak :) z roku na rok wyglada coraz \n lepiej makumba lmaooooooooooooooooo!");
+        //GameObject text = GenerateText("Co to za przystojniak :) z roku na rok wyglada coraz \n lepiej makumba lmaooooooooooooooooo!");
     }
 
 
