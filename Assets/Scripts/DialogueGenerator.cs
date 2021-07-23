@@ -1,12 +1,17 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class DialogueGenerator : MonoBehaviour
 {
     [SerializeField]
-    private Sprite[] sprites;
-    string alphabetOrder = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789*/\\-+\";:,.=?!()_&^%$#@~`<>";
+    Camera camera;
     [SerializeField]
+    GameObject textBox;
+
+    [SerializeField]
+    private Sprite[] sprites;
+    string alphabetOrder = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789*/\\-+\":;,.=?!()_&^%$#@~`<>";
     char[] letterOrder;
     private Dictionary<char, LetterSprite> alphabet = new Dictionary<char, LetterSprite>();
 
@@ -14,6 +19,11 @@ public class DialogueGenerator : MonoBehaviour
     void Start()
     {
         letterOrder = alphabetOrder.ToCharArray();
+        textBox = Instantiate(textBox);
+        textBox.transform.position = new Vector3(camera.transform.position.x, camera.transform.position.y, -8);
+        
+        textBox.transform.parent = camera.transform;
+
 
         if (letterOrder.Length == sprites.Length)
         {
@@ -23,47 +33,64 @@ public class DialogueGenerator : MonoBehaviour
             }
         }
 
-        GenerateDialogue(0, 0, "Adam Schwemk nie zagra w lola \n siema naura");
+        GameObject text = GenerateText("Co to za przystojniak :) z roku na rok wyglada coraz \n lepiej makumba lmaooooooooooooooooo!");
     }
 
 
-    // Update is called once per frame
-    void Update()
+
+    GameObject GenerateText(string text)
     {
-
-    }
-
-
-    void GenerateDialogue(int x, int y, string text)
-    {
+        int x = -123;
+        int y = -60;
         int temp = x;
         char[] charactersToGenerate = text.ToCharArray();
+        GameObject container = new GameObject("TextContainer");
+        container.transform.position = new Vector3(camera.transform.position.x, camera.transform.position.y, -9);
+        container.transform.parent = camera.transform;
 
-        foreach(char character in charactersToGenerate)
+        for (int i = 0; i < charactersToGenerate.Length; i++)
         {
-            if (character == ' ')
+            if (charactersToGenerate[i] == ' ')
             {
                 x += 3;
                 continue;
             }
 
-            if (character == '\n')
+            if (charactersToGenerate[i] == '\n')
             {
                 y -= 10;
                 x = temp;
                 continue;
             }
 
-            LetterSprite letter = alphabet[character];
-    
-            GameObject obj = new GameObject();
-            obj.transform.position = new Vector3(x-letter.letterStart,y,-100);
+
+            LetterSprite letter = alphabet[charactersToGenerate[i]];
+
+            GameObject obj = new GameObject(charactersToGenerate[i].ToString());
+            obj.transform.position = new Vector3(x - letter.letterStart, y, -9);
             obj.AddComponent<SpriteRenderer>();
             obj.GetComponent<SpriteRenderer>().sprite = letter.sprite;
+            obj.GetComponent<SpriteRenderer>().enabled = false;
+
+            obj.transform.parent = container.transform;
 
             x += letter.letterWidth + 1;
-           
-            Instantiate(obj);
+        }
+
+        StartCoroutine(SpawnLetters(container.GetComponentsInChildren<SpriteRenderer>()));
+
+        return container;
+    }
+
+    IEnumerator SpawnLetters(SpriteRenderer[] letters)
+    {
+        for (int i = 0; i < letters.Length; i++)
+        {
+            if (letters[i] == null)
+                break;
+
+            letters[i].enabled = true;
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }
@@ -83,6 +110,8 @@ class LetterSprite
     void GetLetterData(int position)
     {
         Texture2D texture = sprite.texture;
+
+        //get current letter position
         int startX = 0;
         int startY = sprite.texture.height - 1;
 
@@ -97,6 +126,7 @@ class LetterSprite
             }
         }
 
+        //scan the letter to find rightmost and leftmost non-transparent pixels
         int letterStartX = 0;
         int letterEndX = 0;
 
@@ -114,6 +144,7 @@ class LetterSprite
                     break;
                 }
             }
+
             if (found)
                 break;
         }
@@ -131,10 +162,12 @@ class LetterSprite
                     break;
                 }
             }
+
             if (found)
                 break;
         }
 
+        //calculate the width of the letter
         letterWidth = letterEndX - letterStartX + 1;
     }
 }
