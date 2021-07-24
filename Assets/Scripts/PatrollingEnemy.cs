@@ -15,12 +15,27 @@ public class PatrollingEnemy : MonoBehaviour
 
     private Vector2 direction;
     private int index;
-    private float dist;
+    private float distToPoint;
+    private float distToPlayer;
 
+    private bool isPatrolling;
+
+
+    [SerializeField]
+    private Transform playerPosition;
+    [SerializeField]
+    private float minAggroRange;
+    [SerializeField]
+    private float maxAggroRange;
     void Start()
     {
         index = 0;
-        direction = (points[index].position - transform.position).normalized;
+        if (points.Length > 1)
+        {
+            isPatrolling = true;
+            direction = (points[index].position - transform.position).normalized;
+        }
+        else isPatrolling = false;
     }
 
     void Update()
@@ -32,15 +47,24 @@ public class PatrollingEnemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        dist = Vector2.Distance(transform.position, points[index].position);
-        Debug.Log(dist);
-        if (dist < 1f)
+        if (isPatrolling)
         {
-            IncreaseIndex();
+            distToPoint = Vector2.Distance(points[index].position, transform.position);
+            //Debug.Log(distToPoint);
+            if (distToPoint < 1f)
+            {
+                IncreaseIndex();
+            }
+            MoveDestPoint();
         }
-        MoveDestPoint();      
+        Debug.Log(Vector2.Distance(playerPosition.position, transform.position));
+        if (Vector2.Distance(playerPosition.position, transform.position) <= maxAggroRange && Vector2.Distance(playerPosition.position, transform.position) >= minAggroRange)
+        {
+            FollowPlayer();
+            Debug.Log("t");
+        }
+        
     }
-
     void MoveDestPoint()
     {
         if (points.Length == 0)
@@ -59,5 +83,12 @@ public class PatrollingEnemy : MonoBehaviour
             index = 0;
         }
         direction = (points[index].position - transform.position).normalized;
+    }
+
+    void FollowPlayer()
+    {
+        isPatrolling = false;
+        direction = (playerPosition.position - transform.position).normalized;
+        MoveDestPoint();
     }
 }
