@@ -11,8 +11,9 @@ public class PatrollingEnemy : MonoBehaviour
     [SerializeField]
     private float speed = 30f;
     [SerializeField]
+    private Animator animator;
+
     private Vector2 direction;
-    [SerializeField]
     private int index;
     private float dist;
 
@@ -24,12 +25,20 @@ public class PatrollingEnemy : MonoBehaviour
 
     void Update()
     {
+        animator.SetFloat("Horizontal", direction.x);
+        animator.SetFloat("Vertical", direction.y);
+        animator.SetFloat("Speed", direction.sqrMagnitude);
+    }
+
+    void FixedUpdate()
+    {
         dist = Vector2.Distance(transform.position, points[index].position);
+        Debug.Log(dist);
         if (dist < 1f)
         {
             IncreaseIndex();
         }
-        MoveDestPoint();
+        MoveDestPoint();      
     }
 
     void MoveDestPoint()
@@ -39,8 +48,7 @@ public class PatrollingEnemy : MonoBehaviour
             return;
         }
 
-
-        rb.velocity= new Vector2(direction.x * speed,direction.y * speed);
+        rb.MovePosition(rb.position + direction * speed * Time.fixedDeltaTime);
     }
 
     void IncreaseIndex()
