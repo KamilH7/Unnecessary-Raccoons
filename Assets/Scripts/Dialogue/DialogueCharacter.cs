@@ -6,7 +6,6 @@ using UnityEngine;
 public class DialogueCharacter 
 {
     public string name;
-    public int state = 0;
     public Sprite[] idleSprites;
     public Sprite[] talkingSprites;
 

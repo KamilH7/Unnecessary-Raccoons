@@ -4,13 +4,16 @@ using UnityEngine.UI;
 
 public class UICharacter : MonoBehaviour
 {
-    public Image characterImg;
-
+    Image characterImg;
     public float timePerFrame = 0.2f;
-    public string currentName;
 
+    [System.NonSerialized]
+    public string currentName;
+    [System.NonSerialized]
     public Sprite[] idleAnimation;
+    [System.NonSerialized]
     public Sprite[] talkingAnimation;
+    [System.NonSerialized]
     public Sprite[] currentAnimation;
 
     bool animating = true;
