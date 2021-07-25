@@ -18,24 +18,27 @@ public class PatrollingEnemy : MonoBehaviour
     private float distToPoint;
     private float distToPlayer;
 
-    private bool isPatrolling;
-
-
     [SerializeField]
     private Transform playerPosition;
     [SerializeField]
     private float minAggroRange;
     [SerializeField]
     private float maxAggroRange;
+    [SerializeField]
+    private float attackRange;
+
+    private State state = State.Patrolling;
+
+    private enum State
+    {
+        Patrolling,
+        Chasing,
+        Attacking
+    }
     void Start()
     {
         index = 0;
-        if (points.Length > 1)
-        {
-            isPatrolling = true;
-            direction = (points[index].position - transform.position).normalized;
-        }
-        else isPatrolling = false;
+        direction = (points[index].position - transform.position).normalized;  
     }
 
     void Update()
@@ -43,28 +46,36 @@ public class PatrollingEnemy : MonoBehaviour
         animator.SetFloat("Horizontal", direction.x);
         animator.SetFloat("Vertical", direction.y);
         animator.SetFloat("Speed", direction.sqrMagnitude);
+        distToPlayer = Vector2.Distance(playerPosition.position, transform.position);
     }
 
     void FixedUpdate()
     {
-        if (isPatrolling)
-        {
-            distToPoint = Vector2.Distance(points[index].position, transform.position);
-            //Debug.Log(distToPoint);
-            if (distToPoint < 1f)
-            {
-                IncreaseIndex();
-            }
-            MoveDestPoint();
+        switch (state) {
+            default:
+            case State.Patrolling:
+                distToPoint = Vector2.Distance(points[index].position, transform.position);
+                //Debug.Log(distToPoint);
+                Debug.Log("Patrolling");
+                if (distToPoint < 1f)
+                {
+                    IncreaseIndex();
+                }
+                MoveDestPoint();
+                FindPlayer();
+                break;
+
+            case State.Chasing:
+                Debug.Log("Following");
+                FollowPlayer();
+                break;
+
+            case State.Attacking:
+                Debug.Log("Attacking");
+                AttackPlayer();
+                break;
         }
-        Debug.Log(Vector2.Distance(playerPosition.position, transform.position));
-        if (Vector2.Distance(playerPosition.position, transform.position) <= maxAggroRange && Vector2.Distance(playerPosition.position, transform.position) >= minAggroRange)
-        {
-            FollowPlayer();
-            Debug.Log("t");
-        }
-        
-    }
+}
     void MoveDestPoint()
     {
         if (points.Length == 0)
@@ -85,10 +96,41 @@ public class PatrollingEnemy : MonoBehaviour
         direction = (points[index].position - transform.position).normalized;
     }
 
+    //Patrol
+    void FindPlayer()
+    {
+        if (distToPlayer <= minAggroRange)
+        {
+            state = State.Chasing;
+        }
+    }
+
+    //Chase
     void FollowPlayer()
     {
-        isPatrolling = false;
         direction = (playerPosition.position - transform.position).normalized;
         MoveDestPoint();
+
+        if (distToPlayer <= attackRange)
+        {
+            state = State.Attacking;
+        }
+
+        if (distToPlayer > maxAggroRange)
+        {
+            direction = (points[index].position - transform.position).normalized;
+            state = State.Patrolling;
+        }
+
+    }
+
+    //Attack
+    void AttackPlayer()
+    {
+        //do attack
+        if (distToPlayer > attackRange)
+        {
+            state = State.Chasing;
+        }
     }
 }
