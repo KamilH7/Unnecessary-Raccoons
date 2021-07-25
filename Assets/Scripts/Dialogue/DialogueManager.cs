@@ -106,20 +106,28 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("No character named "+name);
         return null;
     }
+
     IEnumerator SpawnLetters(Image[] letters)
     {
-        
+        bool interruped = false;
+
         for (int i = 0; i < letters.Length; i++)
         {
             if (letters[i] == null)
-                yield return new WaitForEndOfFrame();
+            {
+                interruped = true;
+                break;
+            }
 
             letters[i].enabled = true;
             yield return new WaitForSeconds(letterSpawnSpeed);
         }
 
-        npc.SwitchState("Idle");
-        player.SwitchState("Idle");
+        if (!interruped)
+        {
+            npc.SwitchState("Idle");
+            player.SwitchState("Idle");
+        }
     }
     
     IEnumerator AnimateArrow(Transform arrow)
