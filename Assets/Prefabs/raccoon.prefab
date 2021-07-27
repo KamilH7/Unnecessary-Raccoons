@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1924766591039476746}
   - component: {fileID: 1924766591039476756}
   - component: {fileID: 1924766591039476757}
+  - component: {fileID: 5723425800566753353}
   - component: {fileID: 1924766591039476758}
   m_Layer: 0
   m_Name: raccoon
@@ -121,6 +122,19 @@ MonoBehaviour:
   moveSpeed: 75
   rb: {fileID: 1924766591039476756}
   animator: {fileID: 1924766591039476758}
+--- !u!114 &5723425800566753353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924766591039476745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79615b91598791a49a274c72c7605300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthMax: 20
 --- !u!95 &1924766591039476758
 Animator:
   serializedVersion: 3
