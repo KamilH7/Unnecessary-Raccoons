@@ -16,10 +16,12 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private GameObject bulletPrefab;
-    [SerializeField]
-    private Transform firePoint;
 
-   
+    private Transform firePointActual;
+    [SerializeField]
+    private Transform[] firePoints;
+
+
 
     void Update()
     {
@@ -35,9 +37,12 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetFloat("LastHorizontal", movement.x);
             animator.SetFloat("LastVertical", movement.y);
+            if (movement.y < 0) firePointActual = firePoints[1];
+            if (movement.y > 0) firePointActual = firePoints[3];
+            if (movement.x < 0) firePointActual = firePoints[2];
+            if (movement.x > 0) firePointActual = firePoints[0];
         }
 
-      
 
         if (Input.GetKeyDown("space") && CanPlayerShoot())
         {
@@ -53,7 +58,7 @@ public class PlayerController : MonoBehaviour
     void Shoot()
     {
        
-       Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+       Instantiate(bulletPrefab, firePointActual.position, firePointActual.rotation);
     }
 
     bool CanPlayerShoot()
