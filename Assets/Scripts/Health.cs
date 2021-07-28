@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public float health { get; private set; }
 
     [SerializeField]
     private int healthMax;
@@ -12,37 +11,40 @@ public class Health : MonoBehaviour
         get { return healthMax; }
         private set { healthMax = value; }
     }
-    
+
+    [SerializeField]
+    private float healthActual;
+    public float HealthActual
+    {
+        get { return healthActual; }
+        private set { healthActual = value; }
+    }
 
     void Awake()
     {
-        health = healthMax;
+        healthActual = healthMax;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space"))
-        {
-            receiveDamage(2);
-        }
-       // Debug.Log("actual hp: " + health);
-       // Debug.Log("max hp: " + healthMax);
+        // Debug.Log("actual hp: " + health);
+        // Debug.Log("max hp: " + healthMax);
+ 
     }
 
     void receiveDamage(int amount)
     {
-        health -= amount;
-        if (health <= 0)
+        healthActual -= amount;
+        if (healthActual <= 0)
         {
-            Mathf.Clamp(health, 0, healthMax);
+            Mathf.Clamp(healthActual, 0, healthMax);
             //die
         }
     }
 
     void receiveHealth(int amount)
     {
-        health += amount;
-        Mathf.Clamp(health, 0, healthMax);
+        healthActual += amount;
+        Mathf.Clamp(healthActual, 0, healthMax);
     }
 }

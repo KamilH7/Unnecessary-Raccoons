@@ -12,12 +12,11 @@ public class HealthBar : MonoBehaviour
     void Start()
     {
         //Debug.Log(playerHealth.health);
-        healthSlider.fillAmount = playerHealth.health / playerHealth.HealthMax;
+        healthSlider.fillAmount = playerHealth.HealthActual / playerHealth.HealthMax;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        healthSlider.fillAmount = playerHealth.health / playerHealth.HealthMax;
+        healthSlider.fillAmount = playerHealth.HealthActual / playerHealth.HealthMax;
     }
 }
