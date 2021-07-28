@@ -32,19 +32,17 @@ public class Health : MonoBehaviour
  
     }
 
-    void receiveDamage(int amount)
+    public void ReceiveDamage(int amount)
     {
-        healthActual -= amount;
+        healthActual = Mathf.Clamp(healthActual - amount, 0, healthMax);
         if (healthActual <= 0)
         {
-            Mathf.Clamp(healthActual, 0, healthMax);
             //die
         }
     }
 
-    void receiveHealth(int amount)
+    public void ReceiveHealth(int amount)
     {
-        healthActual += amount;
-        Mathf.Clamp(healthActual, 0, healthMax);
+        healthActual = Mathf.Clamp(healthActual + amount, 0, healthMax);
     }
 }

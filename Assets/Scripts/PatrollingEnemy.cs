@@ -26,6 +26,8 @@ public class PatrollingEnemy : MonoBehaviour
     [SerializeField]
     private float attackRange;
 
+    public int damage = 2;
+
     private State state = State.Patrolling;
 
     private enum State
@@ -55,7 +57,7 @@ public class PatrollingEnemy : MonoBehaviour
             case State.Patrolling:
                 distToPoint = Vector2.Distance(points[index].position, transform.position);
                 //Debug.Log(distToPoint);
-                Debug.Log("Patrolling");
+               // Debug.Log("Patrolling");
                 if (distToPoint < 1f)
                 {
                     IncreaseIndex();
@@ -65,12 +67,12 @@ public class PatrollingEnemy : MonoBehaviour
                 break;
 
             case State.Chasing:
-                Debug.Log("Following");
+                //Debug.Log("Following");
                 FollowPlayer();
                 break;
 
             case State.Attacking:
-                Debug.Log("Attacking");
+                //Debug.Log("Attacking");
                 AttackPlayer();
                 break;
         }
@@ -132,4 +134,5 @@ public class PatrollingEnemy : MonoBehaviour
             state = State.Chasing;
         }
     }
+
 }

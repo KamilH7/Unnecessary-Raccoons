@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,15 +17,19 @@ public class PlayerController : MonoBehaviour
     private Transform firePointActual;
     [SerializeField]
     private Transform[] firePoints;
+    // [0] right
+    // [1] down
+    // [2] left
+    // [3] up
 
     private void Start()
     {
-      //  Time.timeScale = 0.1f;
+        //  Time.timeScale = 0.1f;
     }
 
     void Update()
     {
-        
+
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
         //Debug.Log(movement.x);
@@ -55,13 +56,12 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position+movement * moveSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
     void Shoot()
     {
-       
-       Instantiate(bulletPrefab, firePointActual.position, firePointActual.rotation);
+        Instantiate(bulletPrefab, firePointActual.position, firePointActual.rotation);
     }
 
     bool CanPlayerShoot()
@@ -72,5 +72,19 @@ public class PlayerController : MonoBehaviour
             return false;
         }
         return true;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            PatrollingEnemy enemy = collision.gameObject.GetComponent<PatrollingEnemy>();
+            if (enemy != null)
+            {
+                GetComponent<Health>().ReceiveDamage(enemy.damage);
+                Debug.Log("ala boli " + GetComponent<Health>().HealthActual);
+                // TODO: ma dzialac
+            }
+        }
     }
 }
