@@ -21,7 +21,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Transform[] firePoints;
 
-
+    private void Start()
+    {
+      //  Time.timeScale = 0.1f;
+    }
 
     void Update()
     {
@@ -63,7 +66,8 @@ public class PlayerController : MonoBehaviour
 
     bool CanPlayerShoot()
     {
-        if(animator.GetCurrentAnimatorStateInfo(0).IsTag("shooting") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.95f)
+        AnimatorStateInfo an = animator.GetCurrentAnimatorStateInfo(0);
+        if (an.IsTag("shooting") && an.normalizedTime < 1f)
         {
             return false;
         }
