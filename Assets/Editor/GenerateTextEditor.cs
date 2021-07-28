@@ -4,13 +4,15 @@ using UnityEditor;
 [CustomEditor(typeof(TextGenerator))]
 public class TextGeneratorEditor : Editor
 {
-    string text;
+    string text = "Generate This";
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
 
+        GUILayout.Space(30);
+        GUILayout.Label("Editor text generation");
         TextGenerator body = (TextGenerator)target;
-        text = GUILayout.TextArea("Generate This", 200);
+        text = GUILayout.TextArea(text, 200);
 
         if (GUILayout.Button("Generate Text"))
         {  

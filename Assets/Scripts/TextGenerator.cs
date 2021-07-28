@@ -4,8 +4,23 @@ using UnityEngine.UI;
 
 public class TextGenerator : MonoBehaviour
 {
+    Dictionary<char, Letter> alphabet = new Dictionary<char, Letter>();
+    [System.NonSerialized]
     public float pixelSize = 32000 / 270;
 
+    [Header("UI Prefabs")]
+    [SerializeField]
+    GameObject letterPrefab;
+    [SerializeField]
+    GameObject containerPrefab;
+
+    [Header("Font")]
+    [SerializeField]
+    Sprite[] fontSprites;
+    [SerializeField]
+    string fontOrder;
+
+    [Header("Font Settings")]
     [SerializeField]
     int letterSpacing = 1;
     [SerializeField]
@@ -13,17 +28,6 @@ public class TextGenerator : MonoBehaviour
     [SerializeField]
     int newLineDistance = 2;
 
-    [SerializeField]
-    GameObject letterPrefab;
-    [SerializeField]
-    GameObject containerPrefab;
-    Dictionary<char, Letter> alphabet = new Dictionary<char, Letter>();
-
-    [Header("Font Setttings")]
-    [SerializeField]
-    Sprite[] fontSprites;
-    [SerializeField]
-    string fontOrder;
 
     void Start()
     {
