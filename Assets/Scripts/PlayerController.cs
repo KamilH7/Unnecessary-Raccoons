@@ -74,16 +74,29 @@ public class PlayerController : MonoBehaviour
         return true;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
+        Debug.Log("collision");
         if (collision.gameObject.tag == "Enemy")
         {
+            Debug.Log("enemy tag");
             PatrollingEnemy enemy = collision.gameObject.GetComponent<PatrollingEnemy>();
             if (enemy != null)
             {
-                GetComponent<Health>().ReceiveDamage(enemy.damage);
-                Debug.Log("ala boli " + GetComponent<Health>().HealthActual);
-                // TODO: ma dzialac
+                Debug.Log("enemy not null");
+                if (enemy.attackSpeed <= enemy.canAttack)
+                {
+                    Debug.Log("if enemy can attack");
+                    GetComponent<Health>().ReceiveDamage(enemy.damage);
+                    enemy.canAttack = 0f;
+                    Debug.Log("ala boli " + GetComponent<Health>().HealthActual);
+                    // TODO: ma dzialac
+                }
+                else
+                {
+                    Debug.Log("if enemy canT attack");
+                    enemy.canAttack += Time.deltaTime;
+                }
             }
         }
     }

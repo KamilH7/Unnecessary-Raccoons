@@ -27,7 +27,9 @@ public class PatrollingEnemy : MonoBehaviour
     private float attackRange;
 
     public int damage = 2;
-
+    [SerializeField]
+    public float attackSpeed = 1f;
+    public float canAttack;
     private State state = State.Patrolling;
 
     private enum State

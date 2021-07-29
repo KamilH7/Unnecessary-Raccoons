@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-
     [SerializeField]
     private int healthMax;
     public int HealthMax {
@@ -25,11 +24,14 @@ public class Health : MonoBehaviour
         healthActual = healthMax;
     }
 
+    void Start()
+    {
+    }
+
     void Update()
     {
         // Debug.Log("actual hp: " + health);
         // Debug.Log("max hp: " + healthMax);
- 
     }
 
     public void ReceiveDamage(int amount)
