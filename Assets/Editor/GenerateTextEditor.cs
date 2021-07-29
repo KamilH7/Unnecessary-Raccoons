@@ -15,8 +15,10 @@ public class TextGeneratorEditor : Editor
         text = GUILayout.TextArea(text, 200);
 
         if (GUILayout.Button("Generate Text"))
-        {  
-            body.GenerateTextEditor(text, new GameObject("GeneratedText"));
+        {
+            GameObject container = new GameObject(text+" Text");
+            body.GenerateTextEditor(text, container);
+            container.transform.parent = body.gameObject.transform;
         }
     }
 }

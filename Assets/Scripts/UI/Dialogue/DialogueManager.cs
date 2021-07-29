@@ -38,11 +38,6 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            CreateDialogue("Hello wanna buy something ", "ShopKeeper", false);
-            CreateDialogue("Yes Gun please!", "ShopKeeper", true);
-        }
     }
 
     void Start()
