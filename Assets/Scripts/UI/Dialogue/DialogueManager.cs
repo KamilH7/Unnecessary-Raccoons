@@ -36,17 +36,20 @@ public class DialogueManager : MonoBehaviour
         DisplayNextText();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            CreateDialogue("Hello wanna buy something ", "ShopKeeper", false);
+            CreateDialogue("Yes Gun please!", "ShopKeeper", true);
+        }
+    }
+
     void Start()
     {
         DisableDialogueUI();
         StartCoroutine(AnimateArrow(skipArrowImg.transform));
-
-        CreateDialogue("Siema lecimy shoreline ?", "ShopKeeper", false);
-        CreateDialogue("A dawaj byczku ", "ShopKeeper", true);
-        CreateDialogue("Lektor niech sie pozegna z kolanami ", "ShopKeeper", true);
-        CreateDialogue("HAHAHAHHAH", "ShopKeeper", true);
-        CreateDialogue("Ty tez!", "ShopKeeper", false);
-        CreateDialogue("Co kurwa ?????????", "ShopKeeper", true);
+        
     }
 
 
@@ -62,6 +65,8 @@ public class DialogueManager : MonoBehaviour
     {
         if (dialogueQueue.Count > 0)
         {
+            EnableDialogueUI();
+
             npc.ChangeCharacter(dialogueQueue[0].npc);
             player.ChangeCharacter(FindCharacter("Player"));
 
@@ -76,7 +81,6 @@ public class DialogueManager : MonoBehaviour
                 npc.SwitchState("Talking");
             }
 
-            EnableDialogueUI();
             StartCoroutine(SpawnLetters(dialogueQueue[0].textContainer.GetComponentsInChildren<Image>()));
         }
         else
