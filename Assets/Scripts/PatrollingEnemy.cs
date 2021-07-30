@@ -12,6 +12,9 @@ public class PatrollingEnemy : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
+    [SerializeField]
+    private GameObject smallRaccoonPrefab;
+
     private Vector2 direction;
     private int index;
     private float distToPoint;
@@ -145,12 +148,9 @@ public class PatrollingEnemy : MonoBehaviour
         }
     }
 
-    //private void OnCollisionExit2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.tag == "Player")
-    //    {
-    //        canAttack = 1f;
-    //    }
-    //}
 
+   void DropOnDeath()
+   {
+        Instantiate(smallRaccoonPrefab,transform.position,transform.rotation);
+   }
 }

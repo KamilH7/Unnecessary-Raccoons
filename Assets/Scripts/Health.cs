@@ -5,6 +5,8 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField]
+    Animator animator;
+    [SerializeField]
     private int healthMax;
     public int HealthMax {
         get { return healthMax; }
@@ -39,12 +41,21 @@ public class Health : MonoBehaviour
         healthActual = Mathf.Clamp(healthActual - amount, 0, healthMax);
         if (healthActual <= 0)
         {
-            //die
+            Animator anim = GetComponent<Animator>();
+            anim.SetTrigger("Death");
+            StartCoroutine(DelayedDeath(anim.GetCurrentAnimatorStateInfo(0).length));
         }
     }
 
     public void ReceiveHealth(int amount)
     {
         healthActual = Mathf.Clamp(healthActual + amount, 0, healthMax);
+    }
+
+    private IEnumerator DelayedDeath(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Destroy(transform.parent.gameObject);
+        
     }
 }

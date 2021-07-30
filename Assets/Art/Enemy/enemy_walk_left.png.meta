@@ -106,9 +106,9 @@ TextureImporter:
       name: enemy_walk_left_0
       rect:
         serializedVersion: 2
-        x: 7
+        x: 0
         y: 0
-        width: 13
+        width: 24
         height: 24
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -127,10 +127,10 @@ TextureImporter:
       name: enemy_walk_left_1
       rect:
         serializedVersion: 2
-        x: 31
+        x: 24
         y: 0
-        width: 13
-        height: 23
+        width: 24
+        height: 24
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -148,9 +148,9 @@ TextureImporter:
       name: enemy_walk_left_2
       rect:
         serializedVersion: 2
-        x: 55
+        x: 48
         y: 0
-        width: 13
+        width: 24
         height: 24
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -169,10 +169,10 @@ TextureImporter:
       name: enemy_walk_left_3
       rect:
         serializedVersion: 2
-        x: 79
+        x: 72
         y: 0
-        width: 13
-        height: 23
+        width: 24
+        height: 24
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
