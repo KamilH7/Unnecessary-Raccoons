@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Obstacle
   - Building
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -43,4 +44,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 2698466867
+    locked: 0
+  - name: World
+    uniqueID: 436052837
     locked: 0
