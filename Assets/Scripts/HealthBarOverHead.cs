@@ -16,7 +16,7 @@ public class HealthBarOverHead : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        localScale.x = hp.HealthActual;
+        localScale.x = hp.HealthActual*2;
         transform.localScale = localScale;
     }
 }

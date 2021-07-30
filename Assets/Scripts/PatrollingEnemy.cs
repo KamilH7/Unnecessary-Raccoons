@@ -29,7 +29,8 @@ public class PatrollingEnemy : MonoBehaviour
     public int damage = 2;
     [SerializeField]
     public float attackSpeed = 1f;
-    public float canAttack;
+    public float canAttack=1f;
+    [SerializeField]
     private State state = State.Patrolling;
 
     private enum State
@@ -50,6 +51,7 @@ public class PatrollingEnemy : MonoBehaviour
         animator.SetFloat("Vertical", direction.y);
         animator.SetFloat("Speed", direction.sqrMagnitude);
         distToPlayer = Vector2.Distance(playerPosition.position, transform.position);
+        Debug.Log(distToPlayer);
     }
 
     void FixedUpdate()
@@ -70,6 +72,7 @@ public class PatrollingEnemy : MonoBehaviour
 
             case State.Chasing:
                 //Debug.Log("Following");
+                canAttack = 1f;
                 FollowPlayer();
                 break;
 
@@ -87,6 +90,7 @@ public class PatrollingEnemy : MonoBehaviour
         }
 
         rb.MovePosition(rb.position + direction * speed * Time.fixedDeltaTime);
+        //rb.velocity = new Vector2(direction.x * speed, direction.y * speed);
     }
 
     void IncreaseIndex()
@@ -131,10 +135,22 @@ public class PatrollingEnemy : MonoBehaviour
     void AttackPlayer()
     {
         //do attack
+        direction = (playerPosition.position - transform.position).normalized;
+        MoveDestPoint();
+
         if (distToPlayer > attackRange)
         {
             state = State.Chasing;
+            
         }
     }
+
+    //private void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.tag == "Player")
+    //    {
+    //        canAttack = 1f;
+    //    }
+    //}
 
 }

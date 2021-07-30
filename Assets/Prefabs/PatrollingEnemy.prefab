@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4374929955783580871}
   - component: {fileID: 8035221889532626781}
   - component: {fileID: 2188866056408525174}
+  - component: {fileID: 1255066857}
   m_Layer: 0
   m_Name: Healthbar
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4928088097118715993}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 15, z: 0}
+  m_LocalPosition: {x: 0, y: 27.49, z: 0}
   m_LocalScale: {x: 15, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7066173597890704150}
@@ -84,6 +85,19 @@ SpriteRenderer:
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &2188866056408525174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4928088097118715993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2bb033495cb61e4b867faeeb7f70843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: {fileID: 5848566451075368661}
+--- !u!114 &1255066857
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -251,7 +265,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7066173597890704148}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.63, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4374929955783580871}
@@ -362,10 +376,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -11.030828}
+  m_Offset: {x: 0.0121593475, y: 1.388588}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 24, y: 24}
     newSize: {x: 24, y: 24}
     adaptiveTilingThreshold: 0.5
@@ -373,7 +387,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 11.5709, y: 1.938343}
+  m_Size: {x: 10, y: 4.587326}
   m_EdgeRadius: 0
 --- !u!61 &1803707112986840952
 BoxCollider2D:
@@ -388,10 +402,10 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.07768631, y: -1.5536366}
+  m_Offset: {x: 0.004711151, y: 11.116034}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 24, y: 24}
     newSize: {x: 24, y: 24}
     adaptiveTilingThreshold: 0.5
@@ -399,7 +413,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 12.036995, y: 20.89272}
+  m_Size: {x: 12, y: 22}
   m_EdgeRadius: 0
 --- !u!114 &5848566451075368661
 MonoBehaviour:
@@ -434,10 +448,11 @@ MonoBehaviour:
   rb: {fileID: 7066173597890704144}
   speed: 50
   animator: {fileID: 1052903632}
-  playerPosition: {fileID: 1924766591039476747, guid: 64054288c841e564f9c18a4a4128d9d2, type: 3}
+  playerPosition: {fileID: 0}
   minAggroRange: 60
   maxAggroRange: 140
-  attackRange: 5
+  attackRange: 15
   damage: 2
   attackSpeed: 1
-  canAttack: 0
+  canAttack: 1
+  state: 0

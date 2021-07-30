@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -76,28 +77,39 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        Debug.Log("collision");
         if (collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("enemy tag");
             PatrollingEnemy enemy = collision.gameObject.GetComponent<PatrollingEnemy>();
             if (enemy != null)
             {
-                Debug.Log("enemy not null");
                 if (enemy.attackSpeed <= enemy.canAttack)
                 {
-                    Debug.Log("if enemy can attack");
                     GetComponent<Health>().ReceiveDamage(enemy.damage);
                     enemy.canAttack = 0f;
-                    Debug.Log("ala boli " + GetComponent<Health>().HealthActual);
+                    StartFading();
                     // TODO: ma dzialac
                 }
                 else
                 {
-                    Debug.Log("if enemy canT attack");
                     enemy.canAttack += Time.deltaTime;
                 }
             }
         }
+    }
+
+    IEnumerator FadeRed()
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        sr.color = Color.red;
+        for(float f = 0f; f <= 1f; f += 0.05f)
+        {
+            sr.color = new Color(1, f, f, 1);
+            yield return new WaitForSeconds(0.02f);
+        }
+    }
+
+    private void StartFading()
+    {
+        StartCoroutine(FadeRed());
     }
 }
