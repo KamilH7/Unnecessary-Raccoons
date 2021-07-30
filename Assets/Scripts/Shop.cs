@@ -15,6 +15,10 @@ public class Shop : MonoBehaviour
 
     bool firstInteraction = true;
     bool playerInside = false;
+    private void Start()
+    {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/MENU/1", transform.position);
+    }
 
     private void Update()
     {
